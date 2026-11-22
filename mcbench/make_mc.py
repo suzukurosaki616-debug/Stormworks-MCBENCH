@@ -1,19 +1,9 @@
 # -*- coding: utf-8 -*-
 """マイコン .xml の組み立てエンジン。**MCBENCH が持ち主。**
 
-【由来】`Obj 1872` の `make_mc.py` の汎用部分(1〜703行)をそのまま引き取ったもの。
-向こうに残っている `turret_servo()` などの「マイコン1個につきPython関数1本」は
-Obj 1872 固有なので連れてきていない。**実機で何度も壊れて直された実装なので、
-書き換えるときは理由をコメントに残すこと。**
+**実機で何度も壊れて直された実装なので、書き換えるときは理由をコメントに残すこと。**
 
-【二重管理の注意】Obj 1872 側にも同じコードが残っている(向こうは今もこれで自分の
-マイコンを生成しているため)。**今後の修正はこちらに入れる。** Obj 1872 が `.mc` 仕様
-ファイルへ移行した時点で、向こうの `make_mc.py` は消える予定。
-それまでの間、両者は放っておくと食い違う。
-
---- 以下、引き取り時の元のドキュメント ---
-
-Obj 1872 - .lua から Stormworks のマイコン .xml を生成する(ゲーム外ツール)
+.lua から Stormworks のマイコン .xml を生成する(ゲーム外ツール)。
 
 %APPDATA%\\Stormworks\\data\\microprocessors\\*.xml の構造を実物から読み取って再現する。
 1万字超のLuaをゲーム内エディタへ貼る工程、ノード配置、内部結線、プロパティ入力を省ける。
@@ -265,14 +255,14 @@ def rename_idents(src, report=False):
     # 【フィールド名になりうる名前は、どこに出てきても一切リネームしない】
     # '.'/':' の後ろ(t.x)は元から触らないが、テーブル構築子のキー({x = 1})は
     # ただの識別子に見えるのでリネームされていた。すると {x=...} で作った表を t.x で
-    # 読むと nil になる(Obj 1882 の Main が実機で落ちた。2026-09-24)。
+    # 読むと nil になる(実機で Lua が落ちた。2026-09-24)。
     # キーだけを文脈で見分けてリネームを揃えるのはスコープ解析が要って危ういので、
     # フィールドとして使われる名前は丸ごと除外する。誤検出しても名前が長いまま残る
     # だけで、意味は壊れない。
     # キーらしき名前({k= / ,k=)は多重代入の左辺(a, b = ...)とも見分けがつかない。
     # 除外が要るのは「フィールドや文字列として読み戻されるキー」だけなので、
     # フィールド参照に出る名前は全部、キーらしき名前は文字列リテラルと一致するものだけ除外する。
-    # (キーらしき名前を全部除外すると多重代入の変数まで長いまま残り、Obj 1882 Main が
+    # (キーらしき名前を全部除外すると多重代入の変数まで長いまま残り、実機の Lua が
     #  8192字を超えた)
     fields, keyish = set(), set()
     for is_s, txt in parts:
@@ -657,7 +647,7 @@ class MC:
 
         # Values carried over from a vehicle save (mccompile --props-from) replace the
         # .lua defaults. A placed MC is a copy, so rebuilding the library otherwise
-        # resets every tuned value (Obj 1872: Pivot max speed 1 -> 5 made the turret
+        # resets every tuned value (seen in play: Pivot max speed 1 -> 5 made a turret
         # turn at a fifth of the commanded rate, 2026-11-02).
         ov = getattr(self, "prop_values", None) or {}
         if not hasattr(self, "prop_defaults"):
@@ -881,7 +871,7 @@ class MC:
         )
 
 
-# --- 以下も Obj 1872 の make_mc.py から引き取った汎用部分 ---
+# --- 以下も汎用部分 ---
 
 def stamp(body):
     """埋め込むLuaの先頭にビルド印を刺す。

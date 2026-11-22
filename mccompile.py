@@ -5,17 +5,14 @@
   python mccompile.py spec/example/averager.mc --install
   python mccompile.py spec/*.mc --check
 
-【何を汎用化したか】
-`Obj 1872` の `make_mc.py` は、マイコン1個につきPython関数を1本手書きする作りに
-なっている(`turret_servo(lua)`, `radar_director(lua)`, `ppi(lua)` …)。ノードの並び・
-型・ラベル・結線を全部Pythonで書くので、**新しいマイコンを足すたびにコードを書く**。
-
+【なぜ仕様ファイルか】
+マイコンを Python で組み立てると、ノードの並び・型・ラベル・結線を全部コードで書く
+ことになり、**新しいマイコンを足すたびにコードが増える**。
 このツールは、その部分を**テキストの仕様ファイル**に置き換える。ブロックを足す作業が
 「仕様ファイルを1枚書く」だけになり、diffが取れてレビューできる。
 
 【エンジンは同梱】XMLの組み立て・Lua圧縮・ASCII検査・チャンネル範囲検査は
-`mcbench/make_mc.py` が持つ。もとは `Obj 1872` の `make_mc.py` にあったものを
-2026-08-31 に引き取った(別リポジトリへの依存を断つため)。
+`mcbench/make_mc.py` が持つ。
 ここが持つのは「仕様ファイルを読んで MC クラスを呼ぶ」ところだけ。
 
   仕様ファイル(.mc) ──> [このツール] ──> make_mc.MC ──> .xml
@@ -44,7 +41,7 @@ def load_engine(path=None):
     """組み立てエンジンを返す。既定は同梱の `mcbench/make_mc.py`。
 
     `--engine` を指定したときだけ、その場所のファイルを動的に読み込む。
-    Obj 1872 側の古いエンジンと突き合わせたいとき用の逃げ道。
+    別のエンジンと突き合わせたいとき用の逃げ道。
     """
     if not path:
         from mcbench import make_mc
@@ -746,12 +743,12 @@ def compile_spec(sp, eng, props=None):
     # **合流先が2つ以上あるときだけ、map に対象名が要る。**
     # map から名指しされていない出力ノードは合流先として数えない(素通しなので)。
     # **lua と出力ノードが同名なら、map の対象は lua 側。** 以前は両方に数えられ、
-    # その lua 向けの map が出力ノード側にも重ねて書かれていた(Obj 1872 から報告、2026-11-03)。
+    # その lua 向けの map が出力ノード側にも重ねて書かれていた(2026-11-03)。
     targets = lua_names + sorted(t for t in named if t in out_comp and t not in lua_names)
     # 合流先が1つだけのときは対象名を省けるが、**書いてあっても同じ意味にする。**
     # 以前は対象名付きの map が「対象なし」扱いの段と一致せず、黙って捨てられていた。
-    # composite 入力が1本なら Lua に直結されるので症状が隠れ(Obj 9102)、
-    # 数値入力だけの Obj 9105 で Lua の入力が丸ごと未接続になった(2026-09-25)。
+    # composite 入力が1本なら Lua に直結されるので症状が隠れ、
+    # 数値入力だけのマイコンで Lua の入力が丸ごと未接続になった(2026-09-25)。
     if len(targets) == 1:
         sp.maps = [(None if t == targets[0] else t,) + tuple(rest) for t, *rest in sp.maps]
 
@@ -801,7 +798,7 @@ def compile_spec(sp, eng, props=None):
             lua_src = bake_lua(lua_src, baked, hits)
         body = eng.stamp(eng.compress(lua_src))
         # README の「ビルド時に止まる条件」に書いてあるのに止まっていなかった。
-        # lint だけが LUA-LEN で拾い、超過したマイコンがインストールされた(Obj 1882、2026-09-25)
+        # lint だけが LUA-LEN で拾い、超過したマイコンがインストールされた(2026-09-25)
         if len(body) > 8192:
             die("%s: lua %s が圧縮後 %d 字で、上限 8192 字を超えています" % (sp.name, lname, len(body)))
         kids = ['<pos x="%.2f" y="0.00"/>' % (idx * 3.0), "<in1/>", "<out1/>"]
@@ -987,7 +984,7 @@ def compile_spec(sp, eng, props=None):
 
     # --- 映像入力 → Lua 部品の in2 ---
     # Lua 部品は in1 = composite、in2 = 映像。実機の保存XMLで確認済み
-    # (Obj 1882 の Lua 部品が <in1 .../><in2 component_id=映像ブリッジ/>)。
+    # (カメラ映像に重ね描きする Lua 部品が <in1 .../><in2 component_id=映像ブリッジ/>)。
     # `to=` を省けるのは Lua ブロックが1つのときだけ。
     fed = set()
     for is_in, kind, x, z, label, desc, ch, opts in sp.inputs:

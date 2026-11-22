@@ -4,7 +4,7 @@
   python tools/make_dropdown_probe.py            プロジェクト内に書き出す
   python tools/make_dropdown_probe.py --install  ゲームのマイコンフォルダにも置く
 
-i は0始まりの項目番号だと実機で確定した(Obj 1872)。残る疑問は2つ:
+i は0始まりの項目番号だと実機で確定した。残る疑問は2つ:
   * 部品の出力と Lua の property.getNumber が返すのは v か、i が指す項目の値か
   * i が無いとき何が選ばれるか
 

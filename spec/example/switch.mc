@@ -1,5 +1,5 @@
-# Composite Switchbox (type 53) の例。Obj 1891 の依頼(武器用 / センサー用の素通しを
-# パイロンごとに切り替える)を縮めたもの。
+# Composite Switchbox (type 53) の例。武器用 / センサー用の素通しを
+# パイロンごとに切り替える構成を縮めたもの。
 #
 #   switch <名前> on=<composite> off=<composite> sel=<bool の供給元>
 #

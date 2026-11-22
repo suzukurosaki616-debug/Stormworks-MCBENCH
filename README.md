@@ -15,27 +15,15 @@ python tools/selftest.py                                 # 全部まとめて確
 python tools/make_dist.py                                # 配布用 zip を作る
 ```
 
-## 何を汎用化したのか
+## なぜ仕様ファイルか
 
-もとの生成スクリプト(作者の別プロジェクト `Obj 1872` の `make_mc.py`)は、
-**マイコン1個につきPython関数を1本手書きする**作りになっていた。
+マイコンを Python で組み立てると、ノードの並び・型・ラベル・結線を全部コードで書く
+ことになり、**マイコンを1個足すたびにコードが増える**。
 
-```python
-def telemetry(lua):
-    m = MC("Telemetry", "...", 2, 1)
-    for k in (1, 2):
-        i = m.node("Tap %d" % k, "comp", True, k - 1, 0, "...")
-        m.comp(56, [("script", esc(stamp(compress(body))))],
-               ['<pos .../>', '<in1 component_id="%d"/>' % i, '<out1/>'])
-    ...
-```
-
-ノードの並び・型・ラベル・結線を全部Pythonで書くので、**ブロックを足すたびにコードが増える**。
-
-mccompile はその部分をテキストの仕様ファイルに置き換える。上と同じものがこう書ける。
+mccompile はその部分をテキストの仕様ファイルに置き換える。
 
 ```
-name  MCBENCH Telemetry
+name  Bus Tap
 desc  composite bus tap -> localhost HTTP
 size  1 1
 lua   Telemetry.lua
@@ -55,9 +43,8 @@ XMLの組み立て・Lua圧縮・ASCII検査・チャンネル範囲検査・ノ
 仕様ファイル(.mc) ──> [mccompile] ──> mcbench.make_mc.MC ──> .xml
 ```
 
-もとは `Obj 1872` の `make_mc.py` にあったものを 2026-08-31 に引き取った
-(別リポジトリへの依存を断つため)。**実機で何度も痛い目を見て直された実装なので、
-書き換えるときは理由をコメントに残すこと。** `--engine` で別のファイルを指せる。
+**実機で何度も痛い目を見て直された実装なので、書き換えるときは理由をコメントに
+残すこと。** `--engine` で別のファイルを指せる。
 
 ## 仕様ファイルの書き方
 
@@ -237,7 +224,7 @@ python mccompile.py spec/なにか.mc --install --props-from "%APPDATA%/Stormwor
 
 - [AGENTS.md](AGENTS.md) — AI 向けの使い方(文法・罠・止まる条件の要点)
 - [Stormworks-Reference](https://github.com/suzukurosaki616-debug/Stormworks-Reference) — MC Lua API と部品仕様の資料集(実機検証済みの知見)
-- `mcbench/make_mc.py` — XML生成エンジン(2026-08-31 に `Obj 1872` から引き取り)
+- `mcbench/make_mc.py` — XML生成エンジン
 
 ## ライセンス
 
