@@ -1,0 +1,61 @@
+slot,type,name,confidence,basis,inputs,outputs,extra_nodes,attrs,corpus_count
+type0,0,Not,confirmed,ゲーム内エディタの読み上げ (2026-08-30),1,1,,,23030
+type1,1,And,confirmed,ゲーム内エディタの読み上げ (2026-08-30),2,1,,,23831
+type2,2,Or,confirmed,ゲーム内エディタの読み上げ (2026-08-30),2,1,,,17865
+type3,3,Xor,confirmed,ゲーム内エディタの読み上げ (2026-08-30),2,1,,,4482
+type4,4,Nand,confirmed,ゲーム内エディタの読み上げ (2026-08-30),2,1,,,4167
+type5,5,Nor,confirmed,ゲーム内エディタの読み上げ (2026-08-30),2,1,,,2786
+type6,6,Add,confirmed,ゲーム内エディタの読み上げ (2026-08-30),2,1,,,3356
+type7,7,Subtract,confirmed,ゲーム内エディタの読み上げ (2026-08-30),2,1,,,596
+type8,8,Multiply,confirmed,ゲーム内エディタの読み上げ (2026-08-30),2,1,,,37
+type9,9,Divide,confirmed,"ゲーム内エディタの読み上げ (2026-08-30) / 実データに in1=1800, in2=60, out1=30。out2 はゼロ除算フラグらしく in2=0 の実例で true",2,2,,,24
+type10,10,Function (3 inputs),confirmed,"ゲーム内エディタの読み上げ (2026-08-30) / e,p1,p2,p3 属性、3入力",3,1,,"e,p1,p2,p3",624
+type11,11,Clamp,confirmed,"ゲーム内エディタの読み上げ (2026-08-30) / min,max を持つ 1入力1出力",1,1,"max,min",,388
+type12,12,Threshold,confirmed,"ゲーム内エディタの読み上げ (2026-08-30) / min,max を持つ 1入力1出力。Clamp と対",1,1,"max,min",,21195
+type13,13,Memory Register,confirmed,ゲーム内エディタの読み上げ (2026-08-30) / memory 属性,3,1,,memory,202
+type14,14,Abs,confirmed,ゲーム内エディタの読み上げ (2026-08-30),1,1,,,16
+type15,15,Constant Number,confirmed,ゲーム内エディタの読み上げ (2026-08-30),0,1,,,5564
+type16,16,Constant On Signal,confirmed,ゲーム内エディタの読み上げ (2026-08-30),0,1,,,260
+type17,17,Greater Than,confirmed,ゲーム内エディタの読み上げ (2026-08-30),2,1,,,1094
+type18,18,Less Than,confirmed,ゲーム内エディタの読み上げ (2026-08-30),2,1,,,349
+type19,19,Property Slider,confirmed,"ゲーム内エディタの読み上げ (2026-08-30) / min,max + name 属性",0,1,"max,min",name,306
+type20,20,Property Dropdown,confirmed,ゲーム内エディタの読み上げ (2026-08-30) / items + name 属性,0,1,items,"i,name,v",82
+type21,21,Numerical Junction,confirmed,ゲーム内エディタの読み上げ (2026-08-30) / 2入力2出力(古い保存は out1 を2回書く),2,2,,,42
+type22,22,Numerical Switchbox,confirmed,ゲーム内エディタの読み上げ (2026-08-30) / 3入力1出力,3,1,,,6157
+type23,23,PID Controller,confirmed,"ゲーム内エディタの読み上げ (2026-08-30) / pe,pes,te 属性、3入力",3,1,,"pe,pes,te",325
+type24,24,SR Latch,confirmed,ゲーム内エディタの読み上げ (2026-08-30) / 2入力2出力,2,2,,"p1,p2",63
+type25,25,JK Flip Flop,confirmed,ゲーム内エディタの読み上げ (2026-08-30) / 2入力2出力,2,2,,,5
+type26,26,Capacitor,confirmed,"ゲーム内エディタの読み上げ (2026-08-30) / ct,dt = 充電時間/放電時間",1,1,,"c1,c2,ct,dt,p",651
+type27,27,Blinker,confirmed,"ゲーム内エディタの読み上げ (2026-08-30) / on,off = 点灯/消灯の秒数",1,1,,"off,on",60
+type28,28,Push To Toggle,confirmed,ゲーム内エディタの読み上げ (2026-08-30),1,1,,p,357
+type29,29,Composite Read (on/off),confirmed,ゲーム内エディタの読み上げ (2026-08-30) / make_mc.py が実機で確認済み,2,1,,i,6848
+type30,30,Composite Write (on/off) [1ch・旧式],confirmed,ゲーム内エディタの読み上げ (2026-08-30) / 29と対の旧式。1chしか書けないためエディタ上は使わない,0,0,,,0
+type31,31,Composite Read (number),confirmed,ゲーム内エディタの読み上げ (2026-08-30) / make_mc.py が実機で確認済み,2,1,,i,2463
+type32,32,Composite Write (number) [1ch・旧式],confirmed,ゲーム内エディタの読み上げ (2026-08-30) / 31と対の旧式。1chしか書けないためエディタ上は使わない,0,0,,,0
+type33,33,Property Toggle,confirmed,"ゲーム内エディタの読み上げ (2026-08-30) / n,on,off 属性",0,1,,"n,off,on,v",207
+type34,34,Property Number,confirmed,ゲーム内エディタの読み上げ (2026-08-30) / n 属性,0,1,,n,5686
+type35,35,Delta,confirmed,"ゲーム内エディタの読み上げ (2026-08-30) / vp=前tick値, ip=初回パスか。実例が Delta.xml",1,1,,"ip,vp",328
+type36,36,Function (8 inputs),confirmed,ゲーム内エディタの読み上げ (2026-08-30) / e 属性、8入力,8,1,,e,108
+type37,37,Up/Down Counter,confirmed,"ゲーム内エディタの読み上げ (2026-08-30) / min,max + is,m 属性",3,1,"max,min","is,m",439
+type38,38,Modulo (fmod),confirmed,ゲーム内エディタの読み上げ (2026-08-30),2,1,,,71
+type39,39,PID Controller (Advanced),confirmed,ゲーム内エディタの読み上げ (2026-08-30) / 6入力=ゲイン3本がノード化,6,1,,"pe,pes,te",27
+type40,40,Composite Write (number) [32ch],confirmed,"ゲーム内エディタの読み上げ (2026-08-30) / count,offset 属性。inc=ベースcomposite入力, inoff=動的オフセット, in1..inN=書き込む値",32,1,,"count,offset",1573
+type41,41,Composite Write (on/off) [32ch],confirmed,"ゲーム内エディタの読み上げ (2026-08-30) / count,offset 属性。inc/inoff/in1..inN は 40 と同じ",32,1,,"count,offset",3648
+type42,42,Equal,confirmed,ゲーム内エディタの読み上げ (2026-08-30),2,1,,,749
+type43,43,Tooltip Number,confirmed,"ゲーム内エディタの読み上げ (2026-08-30) / l,m 属性、2入力0出力",2,0,,"l,m",198
+type44,44,Tooltip On/Off,confirmed,"ゲーム内エディタの読み上げ (2026-08-30) / l,m,on,off 属性、1入力0出力",1,0,,"l,m,off,on",37
+type45,45,Function (1 input),confirmed,ゲーム内エディタの読み上げ (2026-08-30) / e 属性、1入力,1,1,,e,1801
+type46,46,Logic Function (4 inputs),confirmed,ゲーム内エディタの読み上げ (2026-08-30) / e 属性、4入力,4,1,,e,78
+type47,47,Logic Function (8 inputs),confirmed,ゲーム内エディタの読み上げ (2026-08-30) / e 属性、8入力,8,1,,e,12
+type48,48,Pulse (Toggle to Push),confirmed,"ゲーム内エディタの読み上げ (2026-08-30) / m,p 属性",1,1,,"m,p",679
+type49,49,Timer (TON),confirmed,"ゲーム内エディタの読み上げ (2026-08-30) / t,u 属性",2,1,,"t,u",147
+type50,50,Timer (TOF),confirmed,ゲーム内エディタの読み上げ (2026-08-30) / u 属性,2,1,,u,18
+type51,51,Timer (RTO),confirmed,ゲーム内エディタの読み上げ (2026-08-30) / 51と52はどちらも rto と読まれたが、ID順から 51=RTO / 52=RTF とユーザーが確定,3,0,,,4
+type52,52,Timer (RTF),confirmed,ゲーム内エディタの読み上げ (2026-08-30) / 同上。3入力1出力、属性 u,3,1,,u,2
+type53,53,Composite Switchbox,confirmed,ゲーム内エディタの読み上げ (2026-08-30) / 入出力が子要素<v/>を持つ非スカラー型。供給元が Composite Write(40/41),3,1,,,335
+type54,54,Number To Composite Binary,confirmed,ゲーム内エディタの読み上げ (2026-08-30),0,0,,,1
+type55,55,Composite Binary To Number,confirmed,ゲーム内エディタの読み上げ (2026-08-30),0,0,,,1
+type56,56,Lua Script,confirmed,ゲーム内エディタの読み上げ (2026-08-30) / script 属性。out2は映像出力,2,2,,"BUILD,script",651
+type57,57,Video Switchbox,confirmed,ゲーム内エディタの読み上げ (2026-08-30) / データ入力の供給元が Lua Script の node_index=1(映像出力)のみ,3,1,,,71
+type58,58,Property Text,confirmed,"ゲーム内エディタの読み上げ (2026-08-30) / n,v 属性でノード0本",0,0,,"n,v",22
+type59,59,Audio Switchbox,confirmed,ゲーム内エディタの読み上げ (2026-08-30),3,1,,,3

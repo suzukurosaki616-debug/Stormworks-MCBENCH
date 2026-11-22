@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+out/
+_selftest/
+bundles/
+dist/
+public/
